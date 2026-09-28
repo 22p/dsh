@@ -1,0 +1,25 @@
+# ~/.config/containers/systemd/dsh-web.container
+[Unit]
+Description=DeepSeek Harness coding agent (Web)
+After=network-online.target podman.socket
+Wants=network-online.target
+Requires=podman.socket
+
+[Container]
+Image=ghcr.io/22p/dsh:latest
+ContainerName=dsh-web
+AutoUpdate=registry
+Environment=TZ=Asia/Shanghai
+Network=host
+Volume=dsh:/root
+Exec=npx @deepseek-ai/dsh web --trusted-host dsh.example.com --no-open
+
+SecurityLabelDisable=true
+Volume=%t/podman/podman.sock:/run/podman/podman.sock
+
+[Service]
+Restart=always
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target

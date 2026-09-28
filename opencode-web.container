@@ -1,0 +1,25 @@
+# podman run --rm -it -v opencode:/root 22p/dsh:latest bash -c 'curl -fsSL https://opencode.ai/v2/install | bash'
+# ~/.config/containers/systemd/opencode-web.container
+[Unit]
+Description=OpenCode AI coding agent (Web)
+After=network-online.target podman.socket
+Wants=network-online.target
+Requires=podman.socket
+
+[Container]
+Image=ghcr.io/22p/dsh:latest
+ContainerName=opencode-web
+AutoUpdate=registry
+Environment=TZ=Asia/Shanghai
+PublishPort=127.0.0.1:4097:4097
+Volume=opencode:/root
+
+SecurityLabelDisable=true
+Volume=%t/podman/podman.sock:/run/podman/podman.sock
+
+[Service]
+Restart=always
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target
