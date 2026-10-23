@@ -12,7 +12,7 @@ AutoUpdate=registry
 Environment=TZ=Asia/Shanghai
 Network=host
 Volume=dsh:/root
-Exec=npx @deepseek-ai/dsh web --trusted-host dsh.example.com --no-open
+Exec=npx -y @deepseek-ai/dsh@latest web --trusted-host dsh.example.com --no-open
 
 SecurityLabelDisable=true
 Volume=%t/podman/podman.sock:/run/podman/podman.sock

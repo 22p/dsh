@@ -1,0 +1,25 @@
+# ~/.config/containers/systemd/codebuddy-web.container
+[Unit]
+Description=codebuddy coding agent (Web)
+After=network-online.target podman.socket
+Wants=network-online.target
+Requires=podman.socket
+
+[Container]
+Image=ghcr.io/22p/dsh:latest
+ContainerName=codebuddy-web
+AutoUpdate=registry
+Environment=TZ=Asia/Shanghai
+Volume=dsh:/root
+PublishPort=127.0.0.1:3090:3090
+Exec=npx -y @tencent-ai/codebuddy-code@latest --serve --port 3090 --host 0.0.0.0 --auth none
+
+SecurityLabelDisable=true
+Volume=%t/podman/podman.sock:/run/podman/podman.sock
+
+[Service]
+Restart=always
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target
