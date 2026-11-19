@@ -19,6 +19,7 @@ RUN dnf install -y --nodocs --setopt=install_weak_deps=false \
         nano \
         nodejs \
         npm \
+        nss \
         openssl \
         patch \
         podman-remote \
