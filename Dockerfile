@@ -17,7 +17,7 @@ RUN dnf install -y --nodocs --setopt=install_weak_deps=false \
         less \
         make \
         nano \
-        nodejs \
+        nodejs26 \
         npm \
         nss \
         openssl \
